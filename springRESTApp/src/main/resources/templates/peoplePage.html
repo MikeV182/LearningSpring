@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Person Page</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <span>All people:</span>
+    <p th:if="${people.empty}">
+        <span>No people in here</span>
+    </p>
+    <p th:each="person : ${people}">
+        <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.name}">user</a>
+    </p>
+
+</body>
+</html>
