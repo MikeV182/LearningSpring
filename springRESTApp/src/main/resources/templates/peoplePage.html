@@ -14,5 +14,11 @@
         <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.name}">user</a>
     </p>
 
+    <hr/>
+
+    <form method="get" action="/people/new">
+        <input type="submit" value="Create new account">
+    </form>
+
 </body>
 </html>
