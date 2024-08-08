@@ -2,9 +2,11 @@ package com.learning.REST.springRESTApp.controllers;
 
 import com.learning.REST.springRESTApp.dao.PersonDAO;
 import com.learning.REST.springRESTApp.models.Person;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -35,7 +37,10 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String addPersonToListOfPeople(@ModelAttribute("person") Person person) {
+    public String addPersonToListOfPeople(@ModelAttribute("person") @Valid Person person,
+                                          BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "createPersonForm";
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -47,7 +52,10 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String patchPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+    public String patchPerson(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "editPage";
         personDAO.update(id, person);
         return "redirect:/people";
     }
